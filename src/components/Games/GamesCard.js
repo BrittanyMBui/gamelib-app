@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const GamesCard = (props) => {
     return (
         <>
@@ -7,7 +9,7 @@ const GamesCard = (props) => {
                 onClick={() => props.deleteGame(props.game._id)}
             >delete
             </button>
-            <button>update</button>
+            <Link to={`/edit-game/${props.game._id}`}><button>Edit</button></Link>
             <hr />
             <br />
         </>

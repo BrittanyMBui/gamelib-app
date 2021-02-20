@@ -21,31 +21,31 @@ class GamesPage extends React.Component {
 
     handleDeleteGame = (gameId) => {
         // console.log(gameId);
-        // let confirmed = window.confirm('You sure?');
-        // if (confirmed) {
-        //     console.log('Confirmed, fire away.');
-        // }
-
-        fetch(`http://localhost:4000/api/v1/games/${gameId}`, {
-            method: 'DELETE',
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((jsonData) => {
-            console.log(jsonData);
-            const stateCopy = {
-                ...this.state
-            };
-            const updatedGames = stateCopy.games.filter((gameobj) => {
-                return gameobj._id !== gameId
-            });
-
-            this.setState({
-                games: updatedGames,
+        let confirmed = window.confirm('You sure?');
+        if (confirmed) {
+            console.log('Confirmed, fire away.');
+    
+            fetch(`http://localhost:4000/api/v1/games/${gameId}`, {
+                method: 'DELETE',
             })
-        })
-        .catch((err) => console.log(err))
+            .then((response) => {
+                return response.json();
+            })
+            .then((jsonData) => {
+                console.log(jsonData);
+                const stateCopy = {
+                    ...this.state
+                };
+                const updatedGames = stateCopy.games.filter((gameobj) => {
+                    return gameobj._id !== gameId
+                });
+
+                this.setState({
+                    games: updatedGames,
+                })
+            })
+            .catch((err) => console.log(err))
+        }
     }
 
 
@@ -61,7 +61,10 @@ class GamesPage extends React.Component {
         return (
             <div>
                 <h1>Games Page</h1>
-                <GamesList games={this.state.games} deleteGame={this.handleDeleteGame} />
+                <GamesList 
+                    games={this.state.games} 
+                    deleteGame={this.handleDeleteGame}
+                />
             </div>
         );
     }

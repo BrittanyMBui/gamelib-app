@@ -1,42 +1,50 @@
 import React from 'react';
 
-class NewGamePage extends React.Component {
+class EditGame extends React.Component {
     state = {
         title: '',
         publisher: '',
         coverArtUrl: '',
         completed: false,
-    };
+    }
+
+    componentDidMount() {
+        fetch(`http://localhost:4000/api/v1/games/${this.props.match.params.id}`)
+        .then((response) => {
+            return response.json();
+        })
+        .then((jsonData) => {
+            this.setState(jsonData)
+        })
+        .catch((err) => {
+            console.log(err)
+        });
+    }
 
     handleChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
-        })
-    }
+        });
+    };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
-        fetch('http://localhost:4000/api/v1/games', {
-            method: 'POST',
+        fetch(`http://localhost:4000/api/v1/games/${this.props.match.params.id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(this.state),
         })
-        .then((response) => {
-            return response.json();
-        })
-        .then((jsonData) => {
-            this.props.history.push('/games')
-        })
+        .then(() => this.props.history.push('/games'))
+        .catch((err) => console.log(err));
     };
 
-    render() {
+
+    render () {
         return (
             <div>
-                <h1>Add A New Game</h1>
-
+                <h1>Edit {this.state.title}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div>
                         <label htmlFor="title">Title:</label>
@@ -71,11 +79,11 @@ class NewGamePage extends React.Component {
                             onChange={this.handleChange}  
                         />
                     </div>
-                    <button type="submit">Add Game</button>
+                    <button type="submit">Update Game</button>
                 </form>
             </div>
         );
     }
 }
 
-export default NewGamePage;
+export default EditGame;
