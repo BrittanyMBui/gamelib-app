@@ -9,7 +9,7 @@ class EditGame extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://localhost:4000/api/v1/games/${this.props.match.params.id}`)
+        fetch(`https://gamelib-api-1207.herokuapp.com/api/v1/games/${this.props.match.params.id}`)
         .then((response) => {
             return response.json();
         })
@@ -29,7 +29,7 @@ class EditGame extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        fetch(`http://localhost:4000/api/v1/games/${this.props.match.params.id}`, {
+        fetch(`https://gamelib-api-1207.herokuapp.com/api/v1/games/${this.props.match.params.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

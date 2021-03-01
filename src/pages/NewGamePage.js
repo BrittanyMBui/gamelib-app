@@ -17,7 +17,7 @@ class NewGamePage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         console.log(this.state);
-        fetch('http://localhost:4000/api/v1/games', {
+        fetch('https://gamelib-api-1207.herokuapp.com/api/v1/games', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

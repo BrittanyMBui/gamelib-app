@@ -8,7 +8,7 @@ class GamesPage extends React.Component {
     };
 
     componentDidMount() {
-        fetch('http://localhost:4000/api/v1/games')
+        fetch('https://gamelib-api-1207.herokuapp.com/api/v1/games')
         .then((response) => response.json())
         .then((jsonData) => {
             // console.log(jsonData);
@@ -25,7 +25,7 @@ class GamesPage extends React.Component {
         if (confirmed) {
             console.log('Confirmed, fire away.');
     
-            fetch(`http://localhost:4000/api/v1/games/${gameId}`, {
+            fetch(`https://gamelib-api-1207.herokuapp.com/api/v1/games/${gameId}`, {
                 method: 'DELETE',
             })
             .then((response) => {
